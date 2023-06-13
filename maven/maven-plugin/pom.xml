@@ -84,8 +84,13 @@
                     <groupId>com.google.guava</groupId>
                     <artifactId>guava</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>com.google.inject</groupId>
+                    <artifactId>guice</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
+
     </dependencies>
 
     <build>

@@ -16,15 +16,10 @@
  */
 package org.jboss.shrinkwrap.resolver.impl.maven.internal;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import org.apache.maven.model.Profile;
 import org.apache.maven.model.building.ModelProblemCollector;
-import org.apache.maven.model.path.DefaultPathTranslator;
 import org.apache.maven.model.profile.ProfileActivationContext;
 import org.apache.maven.model.profile.ProfileSelector;
 import org.apache.maven.model.profile.activation.FileProfileActivator;
@@ -32,7 +27,16 @@ import org.apache.maven.model.profile.activation.JdkVersionProfileActivator;
 import org.apache.maven.model.profile.activation.OperatingSystemProfileActivator;
 import org.apache.maven.model.profile.activation.ProfileActivator;
 import org.apache.maven.model.profile.activation.PropertyProfileActivator;
+import org.eclipse.sisu.space.SpaceModule;
+import org.eclipse.sisu.space.URLClassSpace;
+import org.eclipse.sisu.wire.WireModule;
 import org.jboss.shrinkwrap.resolver.impl.maven.util.Validate;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * {@link ProfileSelector} implementation backed by metadata defined by <code>settings.xml</code>
@@ -47,7 +51,12 @@ public class SettingsXmlProfileSelector implements ProfileSelector {
         this.activators = new ArrayList<ProfileActivator>();
         activators.addAll(Arrays.asList(new JdkVersionProfileActivator(), new PropertyProfileActivator(),
             new OperatingSystemProfileActivator(),
-            new FileProfileActivator().setPathTranslator(new DefaultPathTranslator())));
+            locateFileProfileActivator()));
+    }
+
+    private ProfileActivator locateFileProfileActivator() {
+        Injector injector = Guice.createInjector(new WireModule(new SpaceModule(new URLClassSpace(getClass().getClassLoader()))));
+        return injector.getInstance(FileProfileActivator.class);
     }
 
     @Override

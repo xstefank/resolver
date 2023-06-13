@@ -42,7 +42,7 @@
         <version.maven.invoker>3.0.0</version.maven.invoker>
         <version.arquillian.spacelift>1.0.2</version.arquillian.spacelift>
 
-        <version.maven.shade.plugin>3.0.0</version.maven.shade.plugin>
+        <version.maven.shade.plugin>3.2.1</version.maven.shade.plugin>
 
         <version.animal-sniffer-maven-plugin>1.18</version.animal-sniffer-maven-plugin>
 
