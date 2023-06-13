@@ -8,6 +8,11 @@
     <name>ShrinkWrap Maven Resolver Plugin Tests</name>
     <description>Tests for ShrinkWrap Maven Resolver Plugin</description>
 
+    <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>junit</groupId>

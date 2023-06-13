@@ -42,11 +42,7 @@ public class MavenPlexusCipher implements PlexusCipher {
     private final PBECipher cipher;
 
     public MavenPlexusCipher() throws IllegalStateException {
-        try {
-            cipher = new PBECipher();
-        } catch (PlexusCipherException e) {
-            throw new IllegalStateException("Unable to instantiate Cipher to decrypt Maven passwords");
-        }
+        cipher = new PBECipher();
     }
 
     @Override
@@ -99,7 +95,7 @@ public class MavenPlexusCipher implements PlexusCipher {
     }
 
     @Override
-    public String unDecorate(final String str) throws PlexusCipherException {
+    public String unDecorate(final String str) {
 
         Matcher matcherWithoutPrecString = ENCRYPTED_PATTERN_WITHOUT_PRECEDING_STRING.matcher(str);
         if (matcherWithoutPrecString.matches() || matcherWithoutPrecString.find()) {

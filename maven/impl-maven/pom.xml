@@ -105,17 +105,50 @@
             <groupId>org.codehaus.plexus</groupId>
             <artifactId>plexus-utils</artifactId>
         </dependency>
-        <!-- plexus sec dispatcher is needed to support encrypted passwords -->
         <dependency>
-            <groupId>org.sonatype.plexus</groupId>
-            <artifactId>plexus-sec-dispatcher</artifactId>
+            <groupId>org.codehaus.plexus</groupId>
+            <artifactId>plexus-classworlds</artifactId>
+        </dependency>
+        <!-- plexus sec dispatcher is needed to support encrypted passwords -->
+<!--        <dependency>-->
+<!--            <groupId>org.sonatype.plexus</groupId>-->
+<!--            <artifactId>plexus-sec-dispatcher</artifactId>-->
+<!--            <exclusions>-->
+<!--                <exclusion>-->
+<!--                    <groupId>org.codehaus.plexus</groupId>-->
+<!--                    <artifactId>plexus-utils</artifactId>-->
+<!--                </exclusion>-->
+<!--            </exclusions>-->
+<!--        </dependency>-->
+
+        <dependency>
+            <groupId>io.smallrye.beanbag</groupId>
+            <artifactId>smallrye-beanbag-maven</artifactId>
+            <version>1.3.2</version>
             <exclusions>
+<!--                <exclusion>-->
+<!--                    <groupId>org.apache.httpcomponents</groupId>-->
+<!--                    <artifactId>httpclient</artifactId>-->
+<!--                </exclusion>-->
                 <exclusion>
-                    <groupId>org.codehaus.plexus</groupId>
-                    <artifactId>plexus-utils</artifactId>
+                    <groupId>org.apache.maven.wagon</groupId>
+                    <artifactId>wagon-http</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.maven.resolver</groupId>
+                    <artifactId>maven-resolver-transport-http</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>commons-codec</groupId>
+                    <artifactId>commons-codec</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>commons-io</groupId>
+                    <artifactId>commons-io</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
+
 
         <!-- org.apache.maven.wagon -->
         <dependency>
@@ -136,6 +169,12 @@
             <groupId>org.apache.maven.wagon</groupId>
             <artifactId>wagon-http-lightweight</artifactId>
             <version>${version.org.apache.maven.wagon}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.maven.wagon</groupId>
+                    <artifactId>wagon-http-shared</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- Test dependencies -->
@@ -403,6 +442,10 @@
                         <relocation>
                             <pattern>org.slf4j.</pattern>
                             <shadedPattern>shaded.org.slf4j.</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>io.smallrye.</pattern>
+                            <shadedPattern>shaded.io.smallrye.</shadedPattern>
                         </relocation>
                     </relocations>
                     <transformers>
